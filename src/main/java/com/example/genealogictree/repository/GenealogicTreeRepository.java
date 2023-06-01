@@ -1,6 +1,6 @@
-package com.example.genealogictree.model.repository.genealogictree;
+package com.example.genealogictree.repository;
 
-import com.example.genealogictree.model.entities.genealogictree.GenealogicTree;
+import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
