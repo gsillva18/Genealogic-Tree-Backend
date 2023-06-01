@@ -28,7 +28,7 @@ public class People {
     private LocalDate birth;
 
     @NotNull
-    @Column(name = "isActive")
+    @Column(name = "activate")
     private boolean isActive;
 
 //    private People biologicalFather;
@@ -37,7 +37,7 @@ public class People {
 //
 //    private List<People> biolocicalChildrens;
 
-    @Embedded
+    @ManyToOne
     private AdoptiveParents adoptiveParents;
 
 

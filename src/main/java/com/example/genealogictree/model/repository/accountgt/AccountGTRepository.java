@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface AccountGTRepository extends JpaRepository<AccountGT, Integer> {
 
-    public List<AccountGT> findByName(String name);
+    public List<AccountGT> findByEmail(String email);
 
 }
 
