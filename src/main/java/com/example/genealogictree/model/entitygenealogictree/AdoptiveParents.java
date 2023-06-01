@@ -20,9 +20,11 @@ public class AdoptiveParents {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "adoptive_father_fk")
     private Person adoptiveFather;
 
     @ManyToOne
+    @JoinColumn(name = "adoptive_mother_fk")
     private Person adoptiveMother;
 
 }

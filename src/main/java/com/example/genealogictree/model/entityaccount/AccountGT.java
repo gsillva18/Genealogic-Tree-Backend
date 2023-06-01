@@ -18,8 +18,10 @@ public class AccountGT {
     private Integer id;
 
     @OneToMany
+    @JoinColumn(name = "account_gt_fk")
     private List<GenealogicTree> genealogicTreeList;
 
     @OneToOne
+    @JoinColumn(name = "user_gt_fk")
     private UserGT userGT;
 }

@@ -24,5 +24,6 @@ public class GenealogicTree {
     private LocalDate creationDate;
 
     @OneToOne
+    @JoinColumn(name = "initial_person_fk")
     private Person initialPerson;
 }

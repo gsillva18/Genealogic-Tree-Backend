@@ -31,21 +31,27 @@ public class Person {
     private boolean isActive;
 
     @ManyToOne
+    @JoinColumn(name = "person_biological_father")
     private Person biologicalFather;
 
     @ManyToOne
+    @JoinColumn(name = "person_biological_mother")
     private Person biologicalMother;
 
     @OneToMany
+    @JoinTable(name = "TB_BIOLOGICAL_CHILDREN", joinColumns = {
+            @JoinColumn(name = "id_person_father_and_mother", referencedColumnName = "id")
+    })
     private List<Person> biologicalChildren;
 
-    @ManyToMany
+    @OneToMany
+    @JoinTable(name = "TB_ADOPTIVE_CHILDREN", joinColumns = {
+            @JoinColumn(name = "id_person_father_and_mother", referencedColumnName = "id")
+    })
     private List<Person> adoptiveChildren;
 
     @OneToMany
+    @JoinColumn(name = "id_adoptive_children")
     private List<AdoptiveParents> adoptiveParents;
-
-
-
 
 }
