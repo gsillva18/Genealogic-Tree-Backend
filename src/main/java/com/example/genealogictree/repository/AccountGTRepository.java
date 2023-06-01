@@ -1,6 +1,6 @@
-package com.example.genealogictree.model.repository.accountgt;
+package com.example.genealogictree.repository;
 
-import com.example.genealogictree.model.entities.accountgt.AccountGT;
+import com.example.genealogictree.model.entityaccount.AccountGT;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,8 +8,6 @@ import java.util.List;
 
 @Repository
 public interface AccountGTRepository extends JpaRepository<AccountGT, Integer> {
-
-    public List<AccountGT> findByEmail(String email);
 
 }
 

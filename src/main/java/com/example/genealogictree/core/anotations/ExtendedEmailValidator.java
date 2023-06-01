@@ -1,4 +1,4 @@
-package com.example.genealogictree.core.validation;
+package com.example.genealogictree.core.anotations;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

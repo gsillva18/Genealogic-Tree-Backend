@@ -1,28 +1,27 @@
-package com.example.genealogictree.model.entities.accountgt;
+package com.example.genealogictree.model.entityaccount;
 
-import com.example.genealogictree.core.validation.ExtendedEmailValidator;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.example.genealogictree.core.anotations.ExtendedEmailValidator;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-
-@Data
-@Entity
-@Setter
 @Getter
-@Table(name = "users")
-public class AccountGT {
+@Setter
+@Entity
+@Table(name = "TB_USER_GT")
+public class UserGT {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Integer id;
 
-    @Column(unique = true, name = "Email")
+    @NotBlank
+    @Column(name = "name")
+    private String name;
+
+    @Column(unique = true, name = "email")
     @ExtendedEmailValidator
     private String email;
 
@@ -31,6 +30,4 @@ public class AccountGT {
     @Column(name = "password")
     private String password;
 
-    @Embedded
-    private UserGT userGT;
 }
