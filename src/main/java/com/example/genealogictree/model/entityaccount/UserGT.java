@@ -30,4 +30,8 @@ public class UserGT {
     @Column(name = "password")
     private String password;
 
+    @Lob
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
 }

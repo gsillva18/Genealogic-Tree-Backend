@@ -26,7 +26,9 @@ public class Person {
     @Column(columnDefinition = "date")
     private LocalDate birth;
 
-    @NotNull
+    @Lob
+    private String image;
+
     @Column(name = "is_active")
     private boolean isActive;
 
