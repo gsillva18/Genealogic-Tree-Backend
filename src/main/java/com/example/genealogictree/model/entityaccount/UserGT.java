@@ -5,7 +5,9 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 @Getter
 @Setter
@@ -18,6 +20,7 @@ public class UserGT {
     private Integer id;
 
     @NotBlank
+    @Size(min = 5)
     @Column(name = "name")
     private String name;
 
@@ -26,7 +29,7 @@ public class UserGT {
     private String email;
 
     @NotBlank
-    @Size(min = 6, message = "Password must be longer than 6 characters")
+    @NotEmpty
     @Column(name = "password")
     private String password;
 

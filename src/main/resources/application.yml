@@ -1,4 +1,6 @@
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration #depois deve apagar quando colocar segurança na aplicação
   datasource:
     url: jdbc:mysql://localhost:3306/genealogictree_db?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=America/Sao_Paulo
     username: root
@@ -12,3 +14,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 server:
   port: 8080
+
+#spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
