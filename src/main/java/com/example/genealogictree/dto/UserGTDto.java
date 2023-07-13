@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class UserGTDto {
 
-    private String name;
-    private String email;
-    private String password;
-    private String profilePicture;
+    private String idUserAuth0;
+
 }

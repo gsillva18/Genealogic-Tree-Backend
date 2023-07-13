@@ -1,6 +1,13 @@
+auth0:
+  audience: https://genealogic-tree-authorization-api.com
+  domain: dev-pu3jouu47rq7x5ql.us.auth0.com
+
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration #depois deve apagar quando colocar segurança na aplicação
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://${auth0.domain}/
   datasource:
     url: jdbc:mysql://localhost:3306/genealogictree_db?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=America/Sao_Paulo
     username: root
@@ -14,5 +21,3 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 server:
   port: 8080
-
-#spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration

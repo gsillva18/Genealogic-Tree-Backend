@@ -9,11 +9,7 @@ public class ConverterDtoModel {
     public static UserGT convertUserGTDtoToUserGT(UserGTDto userGTDto){
 
         UserGT userGT = new UserGT();
-
-        userGT.setEmail(userGTDto.getEmail());
-        userGT.setName(userGTDto.getName());
-        userGT.setPassword(new BCryptPasswordEncoder().encode(userGTDto.getPassword())); //codifica a senha
-        userGT.setProfilePicture(userGTDto.getProfilePicture());
+        userGT.setIdUserAuth0(userGTDto.getIdUserAuth0());
 
         return userGT;
     }
