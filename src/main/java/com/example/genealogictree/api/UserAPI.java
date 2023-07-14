@@ -36,5 +36,4 @@ public class UserAPI {
                 new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
 
     }
-
 }
