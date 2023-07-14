@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface UserGTRepository extends JpaRepository<UserGT, Integer> {
 
+    public Optional<UserGT> findUserGTByIdUserAuth0(String idUserAuth0);
+
 }
