@@ -1,5 +1,8 @@
 package com.example.genealogictree.service;
 
+import com.example.genealogictree.core.exceptions.NotExistentAccountException;
+import com.example.genealogictree.model.entityaccount.AccountGT;
+import com.example.genealogictree.model.entityaccount.UserGT;
 import com.example.genealogictree.repository.AccountGTRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +13,24 @@ public class AccountGTService {
     @Autowired
     private AccountGTRepository accountGTRepository;
 
-    public void createAccountGT(){
+    public void createAccountGT(UserGT userGT){
+
+        accountGTRepository.save(new AccountGT(userGT));
 
     }
 
-    public void updateAccountGT(){
+    public AccountGT findAccountGT(Integer id) throws Exception{
+       AccountGT accountGT = accountGTRepository.findById(id).orElse(null);
 
+       if(accountGT == null){
+           throw new NotExistentAccountException();
+       }
+
+       return accountGT;
+    }
+
+    public void updateAccountGT(AccountGT accountGT){
+        accountGTRepository.save(accountGT);
     }
 
     public void findAccountGT(){

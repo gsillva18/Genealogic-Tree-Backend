@@ -20,21 +20,7 @@ public class UserGT {
     private Integer id;
 
     @NotBlank
-    @Size(min = 5)
-    @Column(name = "name")
-    private String name;
-
-    @Column(unique = true, name = "email")
-    @ExtendedEmailValidator
-    private String email;
-
-    @NotBlank
-    @NotEmpty
-    @Column(name = "password")
-    private String password;
-
-    @Lob
-    @Column(name = "profile_picture")
-    private String profilePicture;
+    @Column(name = "id_user_auth0")
+    private String idUserAuth0;
 
 }

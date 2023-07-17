@@ -5,7 +5,9 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Size(min = 3)
     @Column(name = "name")
     private String name;
 
@@ -52,8 +56,10 @@ public class Person {
     })
     private List<Person> adoptiveChildren;
 
-    @OneToMany
-    @JoinColumn(name = "id_adoptive_children")
-    private List<AdoptiveParents> adoptiveParents;
+    @ManyToMany
+    @JoinTable(name = "TB_ADOPTIVE_PARENTS",
+            joinColumns = {@JoinColumn(name = "id_person_adoptive_fk")},
+            inverseJoinColumns = {@JoinColumn(name = "id_person_fk")})
+    private List<Person> adoptiveParents;
 
 }

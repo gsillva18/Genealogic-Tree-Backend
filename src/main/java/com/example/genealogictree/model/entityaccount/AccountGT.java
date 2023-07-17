@@ -9,6 +9,7 @@ import java.util.List;
 
 @Setter
 @Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "TB_ACCOUNT_GT")
 public class AccountGT {
@@ -24,4 +25,12 @@ public class AccountGT {
     @OneToOne
     @JoinColumn(name = "user_gt_fk")
     private UserGT userGT;
+
+    public AccountGT(UserGT userGT){
+        this.userGT = userGT;
+    }
+
+    public void addGenealogicTree(GenealogicTree genealogicTree){
+        genealogicTreeList.add(genealogicTree);
+    }
 }

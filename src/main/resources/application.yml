@@ -1,6 +1,15 @@
+#auth0:
+#  audience: https://genealogic-tree-authorization-api.com
+#  domain: dev-pu3jouu47rq7x5ql.us.auth0.com
 spring:
+#  security:     #habilitar apenas quando a classe SecurityConfig estiver habilitada
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: https://${auth0.domain}/
+#          jwk-set-uri: https://${auth0.domain}/.well-known/openid-configuration
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration #depois deve apagar quando colocar segurança na aplicação
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration #deletar depois
   datasource:
     url: jdbc:mysql://localhost:3306/genealogictree_db?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=America/Sao_Paulo
     username: root
@@ -14,5 +23,3 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 server:
   port: 8080
-
-#spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration

@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserGTDto {
+public class DeleteGenealogicTreeDto {
 
-    private String idUserAuth0;
-
+    private Integer idGenealogicTree;
 }
