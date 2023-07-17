@@ -1,6 +1,7 @@
 package com.example.genealogictree.api;
 
 import com.example.genealogictree.dto.CreateGenealogicTreeDto;
+import com.example.genealogictree.dto.DeleteGenealogicTreeDto;
 import com.example.genealogictree.dto.ListGenealogicTreeDto;
 import com.example.genealogictree.response.BasicResponse;
 import com.example.genealogictree.service.GenealogicTreeService;
@@ -45,6 +46,25 @@ public class GenealogicTreeApi {
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao listar árvores genealógicas", null, e.getMessage()));
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
+
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteGenealogicTree(@Valid @RequestBody DeleteGenealogicTreeDto genealogicTreeDto, BindingResult result){
+
+        if(!result.hasErrors()){
+            try {
+                genealogicTreeService.deleteGenealogicTree(genealogicTreeDto);
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        new BasicResponse(HttpStatus.CREATED,"árvore genealógica deletada", null, null));
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao deletar árvore genealógica", null, e.getMessage()));
             }
         }
 

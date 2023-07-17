@@ -1,9 +1,11 @@
 package com.example.genealogictree.service;
 
 import com.example.genealogictree.core.exceptions.ExistingEntityException;
+import com.example.genealogictree.core.exceptions.NotExistentEntityException;
 import com.example.genealogictree.core.utils.ConverterDtoModel;
 import com.example.genealogictree.core.utils.CreatorResponses;
 import com.example.genealogictree.dto.CreateGenealogicTreeDto;
+import com.example.genealogictree.dto.DeleteGenealogicTreeDto;
 import com.example.genealogictree.dto.ListGenealogicTreeDto;
 import com.example.genealogictree.model.entityaccount.AccountGT;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
@@ -62,7 +64,13 @@ public class GenealogicTreeService {
 
     }
 
-    public void deleteGenealogicTree(){
+    public void deleteGenealogicTree(DeleteGenealogicTreeDto genealogicTreeDto) throws Exception{
+
+        if(!genealogicTreeRepository.findById(genealogicTreeDto.getIdGenealogicTree()).isPresent()){
+            throw new NotExistentEntityException();
+        }
+
+        genealogicTreeRepository.deleteById(genealogicTreeDto.getIdGenealogicTree());
 
     }
 }

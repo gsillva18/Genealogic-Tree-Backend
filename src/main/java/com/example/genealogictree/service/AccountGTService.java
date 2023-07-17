@@ -1,7 +1,6 @@
 package com.example.genealogictree.service;
 
-import com.example.genealogictree.core.exceptions.NotExistentAccount;
-import com.example.genealogictree.core.exceptions.NotExistentEntityException;
+import com.example.genealogictree.core.exceptions.NotExistentAccountException;
 import com.example.genealogictree.model.entityaccount.AccountGT;
 import com.example.genealogictree.model.entityaccount.UserGT;
 import com.example.genealogictree.repository.AccountGTRepository;
@@ -24,7 +23,7 @@ public class AccountGTService {
        AccountGT accountGT = accountGTRepository.findById(id).orElse(null);
 
        if(accountGT == null){
-           throw new NotExistentAccount();
+           throw new NotExistentAccountException();
        }
 
        return accountGT;
