@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/genealogictree")
-public class UserAPI {
+public class UserApi {
 
     @Autowired
     private UserGTService userGTService;

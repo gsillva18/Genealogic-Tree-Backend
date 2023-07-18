@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 public class CreatePersonDto {
 
+    private Integer idGenealogicTree;
     private String name;
     private LocalDate birth;
     private Boolean isActive;

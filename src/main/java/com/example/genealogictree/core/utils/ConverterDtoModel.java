@@ -8,7 +8,7 @@ import com.example.genealogictree.dto.UserGTDto;
 import com.example.genealogictree.model.entityaccount.UserGT;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import com.example.genealogictree.model.entitygenealogictree.Person;
-
+import com.example.genealogictree.repository.PersonRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,34 +31,36 @@ public class ConverterDtoModel {
         return genealogicTree;
     }
 
-    public static Person convertPersonDtoToPerson(CreatePersonDto personDto){
+    public static Person convertPersonDtoToPerson(CreatePersonDto personDto, PersonRepository personRepository){
 
         Person person = new Person();
 
-        Person personFather = new Person();
-        Person personMother = new Person();
+        Person personFather = null;
+        Person personMother = null;
         List<Person> biologicalChildren = new ArrayList<>();
         List<Person> adoptiveChildren = new ArrayList<>();
         List<Person> adoptiveParents = new ArrayList<>();
 
         for (ParentsAndChildrenDto itemPerson: personDto.getListParents()) {
 
+            //busca person no banco, caso não encontre cadastra um novo
+            Person personReturned = personRepository.findById(itemPerson.getIdPerson())
+                    .orElse(new Person(itemPerson.getName(), true));
+
             if(itemPerson.getType() == TypePerson.BIOLOGIC_FATHER){
-                personFather.setName(itemPerson.getName());
+                personFather = personReturned;
             }else if(itemPerson.getType() == TypePerson.BIOLOGIC_MOTHER){
-                personMother.setName(itemPerson.getName());
+                personMother = personReturned;
             }else if(itemPerson.getType() == TypePerson.ADOPTIVE_FATHER_MOTHER){
-                Person personFatherMotherAdoptive = new Person();
-                personFatherMotherAdoptive.setName(itemPerson.getName());
-                adoptiveParents.add(personFatherMotherAdoptive);
+                adoptiveParents.add(personReturned);
             }
 
         }
 
         for (ParentsAndChildrenDto itemPerson: personDto.getListChildren()) {
 
-            Person personChildren = new Person();
-            personChildren.setName(itemPerson.getName());
+            Person personChildren = personRepository.findById(itemPerson.getIdPerson())
+                    .orElse(new Person(itemPerson.getName(), true));
 
             if(itemPerson.getType() == TypePerson.BIOLOGIC_CHILDREN){
                 biologicalChildren.add(personChildren);
@@ -79,6 +81,7 @@ public class ConverterDtoModel {
 
         return person;
     }
+
 
 
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class ParentsAndChildrenDto {
 
+    private Integer idPerson;
     private String name;
     private TypePerson type;
 }
