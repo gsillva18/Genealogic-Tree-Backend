@@ -2,11 +2,14 @@ package com.example.genealogictree.service;
 
 import com.example.genealogictree.core.exceptions.NotExistentEntityException;
 import com.example.genealogictree.core.utils.ConverterDtoModel;
+import com.example.genealogictree.core.utils.CreatorResponses;
 import com.example.genealogictree.dto.CreatePersonDto;
+import com.example.genealogictree.dto.InformationPersonDto;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import com.example.genealogictree.model.entitygenealogictree.Person;
 import com.example.genealogictree.repository.GenealogicTreeRepository;
 import com.example.genealogictree.repository.PersonRepository;
+import com.example.genealogictree.response.PersonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +44,18 @@ public class PersonService {
         }
 
 
+
+    }
+
+    public PersonResponse findInformationPerson(InformationPersonDto personDto) throws Exception{
+
+        Person person = personRepository.findById(personDto.getIdPerson()).orElse(null);
+
+        if(person == null){
+            throw new NotExistentEntityException();
+        }
+
+        return CreatorResponses.createPersonResponse(person);
 
     }
 
