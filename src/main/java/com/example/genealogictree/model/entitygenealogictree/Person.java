@@ -46,6 +46,8 @@ public class Person implements Serializable {
     @Column(name = "is_active")
     private boolean isActive;
 
+    private Integer layer;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_biological_father")
     private Person biologicalFather;
@@ -74,14 +76,10 @@ public class Person implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "id_person_father_adoptive_fk")})
     private List<Person> adoptiveParents = new ArrayList<>();
 
-    public Person(String name, Boolean isActive){
+    public Person(String name, Boolean isActive, Integer layer){
         this.name = name;
         this.isActive = isActive;
-    }
-
-    public String getInformation(){
-
-        return "";
+        this.layer = layer;
     }
 
 }

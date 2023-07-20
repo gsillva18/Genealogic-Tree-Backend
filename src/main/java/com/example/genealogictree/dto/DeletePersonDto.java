@@ -6,11 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateParentChildrenDto {
+public class DeletePersonDto {
 
+    private Integer idPersonDelete;
     private Integer idPerson;
-    private Integer idParentExisting;
-    private TypePerson typePerson;
-    private TypePerson typeParent;
-    private String name;
+    private TypePerson typePersonDeleted;
 }

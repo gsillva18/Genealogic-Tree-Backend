@@ -1,9 +1,6 @@
 package com.example.genealogictree.api;
 
-import com.example.genealogictree.dto.CreateParentChildrenDto;
-import com.example.genealogictree.dto.CreatePersonDto;
-import com.example.genealogictree.dto.InformationPersonDto;
-import com.example.genealogictree.dto.UpdatePersonDto;
+import com.example.genealogictree.dto.*;
 import com.example.genealogictree.response.BasicResponse;
 import com.example.genealogictree.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +109,5 @@ public class PersonApi {
 
 
     }
-
 
 }

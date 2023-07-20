@@ -7,10 +7,7 @@ import com.example.genealogictree.core.exceptions.ExistingPersonInTreeException;
 import com.example.genealogictree.core.exceptions.NotExistentEntityException;
 import com.example.genealogictree.core.utils.ConverterDtoModel;
 import com.example.genealogictree.core.utils.CreatorResponses;
-import com.example.genealogictree.dto.CreateParentChildrenDto;
-import com.example.genealogictree.dto.CreatePersonDto;
-import com.example.genealogictree.dto.InformationPersonDto;
-import com.example.genealogictree.dto.UpdatePersonDto;
+import com.example.genealogictree.dto.*;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import com.example.genealogictree.model.entitygenealogictree.Person;
 import com.example.genealogictree.repository.GenealogicTreeRepository;
@@ -96,9 +93,15 @@ public class PersonService {
             throw new ExistingMotherException();
         }
 
-        Person personFatherMother = new Person(dto.getName(), true);
+        Person personFatherMother = null;
 
-        personRepository.save(personFatherMother);
+        if(dto.getIdParentExisting() != null && dto.getIdParentExisting() != 0){
+            personFatherMother = findByIdPerson(dto.getIdParentExisting());
+        }else{
+            personFatherMother = new Person(dto.getName(), true, personChildren.getLayer()+1);
+            personRepository.save(personFatherMother);
+        }
+
 
         addChildrenAndParents(personFatherMother.getId(), dto.getIdPerson(), dto.getTypePerson(), dto.getTypeParent());
 
@@ -106,11 +109,18 @@ public class PersonService {
 
     public void createChildren(CreateParentChildrenDto dto) throws Exception{
 
-        Person personChildren = new Person(dto.getName(), true);
+        Person personParent = findByIdPerson(dto.getIdPerson());
+
+        Person personChildren = new Person(dto.getName(), true, personParent.getLayer()+1);
 
         personRepository.save(personChildren);
 
         addChildrenAndParents(dto.getIdPerson(), personChildren.getId(), dto.getTypePerson(), dto.getTypeParent());
+
+    }
+
+    public void deletePerson(DeletePersonDto personDto) throws Exception{
+
 
     }
 

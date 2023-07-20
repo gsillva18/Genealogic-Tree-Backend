@@ -32,6 +32,7 @@ public class ConverterDtoModel {
 
         person.setName(personDto.getName());
         person.setActive(true);
+        person.setLayer(0);//camada inicial da árvore
 
         return person;
     }

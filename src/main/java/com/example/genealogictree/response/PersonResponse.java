@@ -15,6 +15,7 @@ public class PersonResponse {
     private LocalDate birth;
     private Boolean isActive;
     private String image;
+    private Integer layer;
     private List<ParentsAndChildrenResponse> listParents;
     private List<ParentsAndChildrenResponse> listChildren;
 }

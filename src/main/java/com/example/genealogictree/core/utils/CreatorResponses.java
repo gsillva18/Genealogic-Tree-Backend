@@ -52,6 +52,7 @@ public class CreatorResponses {
         personResponse.setName(person.getName());
         personResponse.setBirth(person.getBirth());
         personResponse.setImage(person.getImage());
+        personResponse.setLayer(person.getLayer());
         personResponse.setIsActive(person.isActive());
 
         if(person.getBiologicalFather() != null){
