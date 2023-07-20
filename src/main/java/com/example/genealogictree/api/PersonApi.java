@@ -1,7 +1,9 @@
 package com.example.genealogictree.api;
 
+import com.example.genealogictree.dto.CreateParentChildrenDto;
 import com.example.genealogictree.dto.CreatePersonDto;
 import com.example.genealogictree.dto.InformationPersonDto;
+import com.example.genealogictree.dto.UpdatePersonDto;
 import com.example.genealogictree.response.BasicResponse;
 import com.example.genealogictree.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +55,63 @@ public class PersonApi {
                 new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
 
     }
+
+    @PutMapping("/person/update")
+    public ResponseEntity<?> updateInformationPerson(@Valid @RequestBody UpdatePersonDto updatePersonDto, BindingResult result){
+
+        if(!result.hasErrors()){
+            try {
+                personService.updateInformationPerson(updatePersonDto);
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        new BasicResponse(HttpStatus.CREATED,"pessoa atualizada com sucesso", null, null));
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao atualizar informações da pessoa", null, e.getMessage()));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
+    }
+
+    @PostMapping("/person/new-parent")
+    public ResponseEntity<?> createParents(@Valid @RequestBody CreateParentChildrenDto createParentChildrenDto, BindingResult result){
+
+        if(!result.hasErrors()){
+            try {
+                personService.createParents(createParentChildrenDto);
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        new BasicResponse(HttpStatus.CREATED,"pai/mãe criado com sucesso", null, null));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao criar pai/mãe", null, e.getMessage()));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
+
+
+    }
+
+    @PostMapping("/person/new-children")
+    public ResponseEntity<?> createChildren(@Valid @RequestBody CreateParentChildrenDto createParentChildrenDto, BindingResult result){
+
+        if(!result.hasErrors()){
+            try {
+                personService.createChildren(createParentChildrenDto);
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        new BasicResponse(HttpStatus.CREATED,"criança criada com sucesso", null, null));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao criar criança", null, e.getMessage()));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
+
+
+    }
+
+
 }

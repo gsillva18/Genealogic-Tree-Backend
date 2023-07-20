@@ -5,9 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreatePersonDto {
+public class InformationGenealogicTreeDto {
 
     private Integer idGenealogicTree;
-    private String name;
-
 }

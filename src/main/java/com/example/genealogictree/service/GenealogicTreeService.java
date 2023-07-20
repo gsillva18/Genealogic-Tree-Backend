@@ -6,6 +6,7 @@ import com.example.genealogictree.core.utils.ConverterDtoModel;
 import com.example.genealogictree.core.utils.CreatorResponses;
 import com.example.genealogictree.dto.CreateGenealogicTreeDto;
 import com.example.genealogictree.dto.DeleteGenealogicTreeDto;
+import com.example.genealogictree.dto.InformationGenealogicTreeDto;
 import com.example.genealogictree.dto.ListGenealogicTreeDto;
 import com.example.genealogictree.model.entityaccount.AccountGT;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
@@ -52,16 +53,17 @@ public class GenealogicTreeService {
         return CreatorResponses.createResponseList(accountGT.getGenealogicTreeList());
     }
 
-    public void updateGenealogicTree(){
+    public CreateGenealogicTreeResponse informationGenealogicTree(InformationGenealogicTreeDto genealogicTreeDto) throws Exception{
 
-    }
+        GenealogicTree genealogicTree = genealogicTreeRepository.findById(genealogicTreeDto.getIdGenealogicTree()).orElse(null);
 
-    public void findGenealogicTree(){
+        if(genealogicTree == null){
+            throw new NotExistentEntityException();
+        }
 
-    }
+        CreateGenealogicTreeResponse response = CreatorResponses.createResponse(genealogicTree);
 
-    public void findAllGenealogicTree(){
-
+        return response;
     }
 
     public void deleteGenealogicTree(DeleteGenealogicTreeDto genealogicTreeDto) throws Exception{

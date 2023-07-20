@@ -1,7 +1,7 @@
 package com.example.genealogictree.core.utils;
 
 import com.example.genealogictree.core.enums.TypePerson;
-import com.example.genealogictree.dto.ParentsAndChildrenDto;
+import com.example.genealogictree.response.ParentsAndChildrenResponse;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import com.example.genealogictree.model.entitygenealogictree.Person;
 import com.example.genealogictree.response.CreateGenealogicTreeResponse;
@@ -45,8 +45,8 @@ public class CreatorResponses {
     public static PersonResponse createPersonResponse(Person person){
 
         PersonResponse personResponse = new PersonResponse();
-        List<ParentsAndChildrenDto> listParents = new ArrayList<>();
-        List<ParentsAndChildrenDto> listChildren = new ArrayList<>();
+        List<ParentsAndChildrenResponse> listParents = new ArrayList<>();
+        List<ParentsAndChildrenResponse> listChildren = new ArrayList<>();
 
         personResponse.setId(person.getId());
         personResponse.setName(person.getName());
@@ -55,11 +55,11 @@ public class CreatorResponses {
         personResponse.setIsActive(person.isActive());
 
         if(person.getBiologicalFather() != null){
-            listParents.add(createParentsAndChildrenDto(person.getBiologicalFather(), TypePerson.BIOLOGIC_FATHER));
+            listParents.add(createParentsAndChildrenDto(person.getBiologicalFather(), TypePerson.BIOLOGICAL_FATHER));
         }
 
         if(person.getBiologicalMother() != null){
-            listParents.add(createParentsAndChildrenDto(person.getBiologicalMother(), TypePerson.BIOLOGIC_MOTHER));
+            listParents.add(createParentsAndChildrenDto(person.getBiologicalMother(), TypePerson.BIOLOGICAL_MOTHER));
         }
 
         person.getAdoptiveParents().stream().forEach(adoptiveParentsPerson ->{
@@ -67,7 +67,7 @@ public class CreatorResponses {
         });
 
         person.getBiologicalChildren().stream().forEach(biologicChildrenPerson ->{
-            listChildren.add(createParentsAndChildrenDto(biologicChildrenPerson, TypePerson.BIOLOGIC_CHILDREN));
+            listChildren.add(createParentsAndChildrenDto(biologicChildrenPerson, TypePerson.BIOLOGICAL_CHILDREN));
         });
 
         person.getAdoptiveChildren().stream().forEach(adoptiveChildrenPerson->{
@@ -81,12 +81,12 @@ public class CreatorResponses {
         return personResponse;
     }
 
-    private static ParentsAndChildrenDto createParentsAndChildrenDto(Person person, TypePerson typePerson){
+    private static ParentsAndChildrenResponse createParentsAndChildrenDto(Person person, TypePerson typePerson){
 
-        ParentsAndChildrenDto dto = null;
+        ParentsAndChildrenResponse dto = null;
 
         if(person != null){
-            dto = new ParentsAndChildrenDto();
+            dto = new ParentsAndChildrenResponse();
             dto.setIdPerson(person.getId());
             dto.setName(person.getName());
             dto.setType(typePerson);
