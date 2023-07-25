@@ -33,11 +33,4 @@ public class AccountGTService {
         accountGTRepository.save(accountGT);
     }
 
-    public void findAccountGT(){
-
-    }
-
-    public void deleteAccountGT(){
-
-    }
 }

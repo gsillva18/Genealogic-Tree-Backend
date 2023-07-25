@@ -1,13 +1,16 @@
 package com.example.genealogictree.core.utils;
 
+import com.example.genealogictree.config.GenealogicTreeConfig;
 import com.example.genealogictree.dto.CreateGenealogicTreeDto;
 import com.example.genealogictree.dto.CreatePersonDto;
 import com.example.genealogictree.dto.UserGTDto;
 import com.example.genealogictree.model.entityaccount.UserGT;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import com.example.genealogictree.model.entitygenealogictree.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class ConverterDtoModel {
+
 
     public static UserGT convertUserGTDtoToUserGT(UserGTDto userGTDto){
 
