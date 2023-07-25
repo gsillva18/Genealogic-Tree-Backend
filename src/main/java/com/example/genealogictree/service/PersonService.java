@@ -119,8 +119,85 @@ public class PersonService {
 
     }
 
-    public void deletePerson(DeletePersonDto personDto) throws Exception{
+    public void removeRelationshipsPerson(DeletePersonDto personDto) throws Exception{
 
+        //deixa de referenciar (ter relação) os pais que fazem parte do ramo principal
+        deleteParents(personDto.getIdPerson());
+
+        //deixa de referenciar (ter relação) os filhos que fazem parte do ramo principal
+        deleteChildren(personDto.getIdPerson());
+
+        //caso a pessoa a ser deletada seja a initial person de uma árvore genealógica
+        personRepository.deleteInitialPersonOfTheGenealogicTree(personDto.getIdPerson());
+
+    }
+
+    public void deletePerson(DeletePersonDto personDto){
+        personRepository.deleteById(personDto.getIdPerson());
+    }
+
+    public void deleteParents(Integer personId) throws Exception{
+
+        Person person = findByIdPerson(personId);
+
+        List<Person> biologicalParents = personRepository.findBiologicalParents(person.getId());
+
+        //caso ele não possua pais biológicos não será iniciado o for
+        biologicalParents.stream().forEach(biologicalParent -> {
+
+            //verifica se o pai/mãe faz parte do ramo principal e se não faz, ele verifica se pode deletar
+            if(biologicalParent.getLayer() < person.getLayer() || (biologicalParents.size() == 2 &&
+                            personRepository.personHasOneBiologicalParentsToTheMainBranch(person.getId(), person.getLayer()) == 1 &&
+                            personRepository.checkBrothersPerson(person.getId(), biologicalParent.getId()).size() > 0)){
+
+                //remove esse filho da lista de filhos biológicos que esse pai/mãe possui
+                personRepository.deleteBiologicalChildren(biologicalParent.getId(), person.getId());
+
+                //remove a relação desse filho com esse pai/mãe
+                personRepository.deleteFatherOrMotherBiologic(biologicalParent.getId(), person.getId());
+
+            }
+
+        });
+
+        //desconectar pais adotivos que fazem parte do ramo princiapal
+        person.getAdoptiveParents().stream().forEach(adoptiveParent -> {
+            if(adoptiveParent.getLayer() < person.getLayer()){
+                //remove esse pai da lista de pais adotivos que esse filho tem
+                personRepository.deleteFatherOrMotherAdoptive(adoptiveParent.getId(), person.getId());
+
+                //remove o filho da lista de filhos adotivos que esse pai tem
+                personRepository.deleteAdoptiveChildren(adoptiveParent.getId(),person.getId());
+            }
+        });
+
+
+    }
+
+    public void deleteChildren( Integer personId) throws Exception{
+
+        Person person = findByIdPerson(personId);
+
+        //desconectar filhos biológicos que fazem parte do ramo princiapal
+        person.getBiologicalChildren().stream().forEach(personChildren ->{
+            if(personChildren.getLayer() < person.getLayer()){
+                //remove esse filho da lista de filhos biológicos que ele tem antes de apagar
+                personRepository.deleteBiologicalChildren(person.getId(), personChildren.getId());
+                //aqui deixa o pai biológico desse filho como nulo
+                personRepository.deleteFatherOrMotherBiologic(person.getId(), personChildren.getId());
+            }
+        });
+
+        //desconectar filhos adotivos que fazem parte do ramo princiapal
+        person.getAdoptiveChildren().stream().forEach(personChildren ->{
+            if(personChildren.getLayer() < person.getLayer()){
+                //remove esse filho da lista de filhos adotivos que ele tem
+                personRepository.deleteAdoptiveChildren(person.getId(), personChildren.getId());
+
+                //remove esse pai da lista de pais adotivos que esse filho tem
+                personRepository.deleteFatherOrMotherAdoptive(person.getId(), personChildren.getId());
+            }
+        });
 
     }
 

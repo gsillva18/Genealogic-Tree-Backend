@@ -107,6 +107,43 @@ public class PersonApi {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
 
+    }
+
+    @DeleteMapping("/person/delete-relationships")
+    public ResponseEntity<?> deleteRelationshipsPerson(@Valid @RequestBody DeletePersonDto deletePersonDto, BindingResult result){
+
+        if(!result.hasErrors()){
+            try {
+                personService.removeRelationshipsPerson(deletePersonDto);
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        new BasicResponse(HttpStatus.CREATED,"relacionamentos deletados com sucesso", null, null));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao deletar relacionamentos", null, e.getMessage()));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
+
+    }
+
+    @DeleteMapping("/person/delete")
+    public ResponseEntity<?> deletePerson(@Valid @RequestBody DeletePersonDto deletePersonDto, BindingResult result){
+
+        if(!result.hasErrors()){
+            try {
+                personService.deletePerson(deletePersonDto);
+                return ResponseEntity.status(HttpStatus.CREATED).body(
+                        new BasicResponse(HttpStatus.CREATED,"pessoa deletada com sucesso", null, null));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                        new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao deletar pessoa", null, e.getMessage()));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new BasicResponse(HttpStatus.BAD_REQUEST,"dados incorretos", result.getFieldErrors(), null));
 
     }
 

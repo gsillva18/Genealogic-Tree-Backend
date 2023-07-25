@@ -8,7 +8,5 @@ import lombok.Setter;
 @Setter
 public class DeletePersonDto {
 
-    private Integer idPersonDelete;
     private Integer idPerson;
-    private TypePerson typePersonDeleted;
 }

@@ -48,29 +48,29 @@ public class Person implements Serializable {
 
     private Integer layer;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_biological_father")
     private Person biologicalFather;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_biological_mother")
     private Person biologicalMother;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "TB_BIOLOGICAL_CHILDREN",
             joinColumns = {@JoinColumn(name = "id_person_father_and_mother")},
             inverseJoinColumns = {@JoinColumn(name = "id_person_biological_children")}
     )
     private List<Person> biologicalChildren = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "TB_ADOPTIVE_CHILDREN",
             joinColumns = { @JoinColumn(name = "id_person_father_and_mother")},
             inverseJoinColumns = {@JoinColumn(name = "id_person_adoptive_children")}
     )
     private List<Person> adoptiveChildren = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "TB_ADOPTIVE_PARENTS",
             joinColumns = {@JoinColumn(name = "id_person_adoptive_fk")},
             inverseJoinColumns = {@JoinColumn(name = "id_person_father_adoptive_fk")})
