@@ -26,4 +26,6 @@ server:
 genealogictree:
   config:
     initial-layer: 0
+  logs:
+    send-splunk: "SEND_SPLUNK"
 
