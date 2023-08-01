@@ -3,6 +3,7 @@ package com.example.genealogictree.api;
 import com.example.genealogictree.dto.*;
 import com.example.genealogictree.response.BasicResponse;
 import com.example.genealogictree.service.PersonService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping("/genealogictree")
 public class PersonApi {
@@ -27,6 +29,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"pessoa salva com sucesso", null, null));
             } catch (Exception e) {
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao criar pessoa", null, e.getMessage()));
             }
@@ -44,6 +47,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         personService.findInformationPerson(informationPersonDto));
             } catch (Exception e) {
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao recuperar informações da pessoa", null, e.getMessage()));
             }
@@ -62,6 +66,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"pessoa atualizada com sucesso", null, null));
             } catch (Exception e) {
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao atualizar informações da pessoa", null, e.getMessage()));
             }
@@ -79,7 +84,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"pai/mãe criado com sucesso", null, null));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao criar pai/mãe", null, e.getMessage()));
             }
@@ -99,7 +104,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"criança criada com sucesso", null, null));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao criar criança", null, e.getMessage()));
             }
@@ -118,7 +123,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"relacionamentos deletados com sucesso", null, null));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao deletar relacionamentos", null, e.getMessage()));
             }
@@ -137,7 +142,7 @@ public class PersonApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"pessoa deletada com sucesso", null, null));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao deletar pessoa", null, e.getMessage()));
             }

@@ -18,7 +18,7 @@ public class AccountGTService {
     public void createAccountGT(UserGT userGT){
 
         accountGTRepository.save(new AccountGT(userGT));
-        log.info("USUÁRIO SALVO COM SUCESSO");
+        log.info("conta criada com sucesso");
 
     }
 
@@ -34,6 +34,7 @@ public class AccountGTService {
 
     public void updateAccountGT(AccountGT accountGT){
         accountGTRepository.save(accountGT);
+        log.info("conta atualizada com sucesso");
     }
 
 }

@@ -20,7 +20,7 @@ public class LogAppender extends AppenderBase<ILoggingEvent> {
             ManagerLog.getInstance().finalizeLog(listLogs);
             listLogs.clear();
         }else{
-            Log log = new Log(iLoggingEvent.getLevel().toString(),iLoggingEvent.getLoggerName(), iLoggingEvent.getFormattedMessage());
+            Log log = new Log(iLoggingEvent);
             listLogs.add(log);
         }
     }

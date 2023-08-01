@@ -13,13 +13,14 @@ import com.example.genealogictree.model.entitygenealogictree.Person;
 import com.example.genealogictree.repository.GenealogicTreeRepository;
 import com.example.genealogictree.repository.PersonRepository;
 import com.example.genealogictree.response.PersonResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class PersonService {
 
@@ -48,12 +49,14 @@ public class PersonService {
 
         //salvar a pessoa no banco de dados
         personRepository.save(person);
+        log.info("Pessoa criada com sucesso");
 
         //adicionar a pessoa como nó inicial da árvore
         genealogicTree.setInitialPerson(person);
 
         //atualiza a árvore com a pessoa inicial
         genealogicTreeRepository.save(genealogicTree);
+        log.info("Árvore genealógica atualizada com sucesso");
 
 
     }
@@ -76,6 +79,7 @@ public class PersonService {
         person.setImage(updatePersonDto.getImage());
 
         personRepository.save(person);
+        log.info("Pessoa atualizada com sucesso");
 
     }
 
@@ -100,6 +104,7 @@ public class PersonService {
         }else{
             personFatherMother = new Person(dto.getName(), true, personChildren.getLayer()+1);
             personRepository.save(personFatherMother);
+            log.info("Pai/mãe criado com sucesso");
         }
 
 
@@ -114,6 +119,7 @@ public class PersonService {
         Person personChildren = new Person(dto.getName(), true, personParent.getLayer()+1);
 
         personRepository.save(personChildren);
+        log.info("Filho(a) criado com sucesso");
 
         addChildrenAndParents(dto.getIdPerson(), personChildren.getId(), dto.getTypePerson(), dto.getTypeParent());
 
@@ -130,10 +136,13 @@ public class PersonService {
         //caso a pessoa a ser deletada seja a initial person de uma árvore genealógica
         personRepository.deleteInitialPersonOfTheGenealogicTree(personDto.getIdPerson());
 
+        log.info("relacionamentos da pessoa de id: " + personDto.getIdPerson() + "removidos com sucesso");
+
     }
 
     public void deletePerson(DeletePersonDto personDto){
         personRepository.deleteById(personDto.getIdPerson());
+        log.info("Pessoa deletada com sucesso");
     }
 
     public void deleteParents(Integer personId) throws Exception{
@@ -156,6 +165,8 @@ public class PersonService {
                 //remove a relação desse filho com esse pai/mãe
                 personRepository.deleteFatherOrMotherBiologic(biologicalParent.getId(), person.getId());
 
+                log.info("removida a relação pai/mãe biológico");
+
             }
 
         });
@@ -168,6 +179,8 @@ public class PersonService {
 
                 //remove o filho da lista de filhos adotivos que esse pai tem
                 personRepository.deleteAdoptiveChildren(adoptiveParent.getId(),person.getId());
+
+                log.info("removida a relação pai/mãe adotivo");
             }
         });
 
@@ -185,6 +198,8 @@ public class PersonService {
                 personRepository.deleteBiologicalChildren(person.getId(), personChildren.getId());
                 //aqui deixa o pai biológico desse filho como nulo
                 personRepository.deleteFatherOrMotherBiologic(person.getId(), personChildren.getId());
+
+                log.info("removida a relação filho(a) biológico");
             }
         });
 
@@ -196,6 +211,8 @@ public class PersonService {
 
                 //remove esse pai da lista de pais adotivos que esse filho tem
                 personRepository.deleteFatherOrMotherAdoptive(person.getId(), personChildren.getId());
+
+                log.info("removida a relação filho(a) adotivo");
             }
         });
 
@@ -266,7 +283,9 @@ public class PersonService {
         }
 
         personRepository.save(personParent);
+        log.info("Adicionada a relação com pai(s)");
         personRepository.save(personChildren);
+        log.info("Adicionada a relação com filho(a)");
 
     }
 

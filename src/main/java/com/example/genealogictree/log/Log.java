@@ -1,5 +1,6 @@
 package com.example.genealogictree.log;
 
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,10 +11,12 @@ public class Log {
     private String level;
     private String logger;
     private String message;
+    private StackTraceElement[] stackTraceElements;
 
-    public Log(String level, String logger, String message){
-        this.level = level;
-        this.logger = logger;
-        this.message = message;
+    public Log(ILoggingEvent iLoggingEvent){
+        this.level = iLoggingEvent.getLevel().toString();
+        this.logger = iLoggingEvent.getLoggerName();
+        this.message = iLoggingEvent.getFormattedMessage();
+        this.stackTraceElements = iLoggingEvent.getCallerData();
     }
 }

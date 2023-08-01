@@ -12,11 +12,13 @@ import com.example.genealogictree.model.entityaccount.AccountGT;
 import com.example.genealogictree.model.entitygenealogictree.GenealogicTree;
 import com.example.genealogictree.repository.GenealogicTreeRepository;
 import com.example.genealogictree.response.CreateGenealogicTreeResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class GenealogicTreeService {
 
@@ -39,6 +41,7 @@ public class GenealogicTreeService {
         GenealogicTree genealogicTree = ConverterDtoModel.convertGenealogictreeDtoToGenealogicTree(genealogicTreeDto);
 
         genealogicTreeRepository.save(genealogicTree);
+        log.info("Árvore genealógica criada com sucesso");
         accountGT.addGenealogicTree(genealogicTree);
         accountGTService.updateAccountGT(accountGT);
 
@@ -73,6 +76,7 @@ public class GenealogicTreeService {
         }
 
         genealogicTreeRepository.deleteById(genealogicTreeDto.getIdGenealogicTree());
+        log.info("Árvore genealógica deletada com sucesso");
 
     }
 }

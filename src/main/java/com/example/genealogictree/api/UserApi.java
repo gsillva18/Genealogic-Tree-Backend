@@ -31,7 +31,7 @@ public class UserApi {
                 return ResponseEntity.status(HttpStatus.CREATED).body(
                         new BasicResponse(HttpStatus.CREATED,"usuário salvo com sucesso", null, null));
             } catch (Exception e) {
-                log.error("ERRO AO CRIAR USUÁRIO");
+                log.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                         new BasicResponse(HttpStatus.BAD_REQUEST,"erro ao criar usuário", null, e.getMessage()));
             }
