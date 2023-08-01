@@ -5,9 +5,11 @@ import com.example.genealogictree.core.utils.ConverterDtoModel;
 import com.example.genealogictree.dto.UserGTDto;
 import com.example.genealogictree.model.entityaccount.UserGT;
 import com.example.genealogictree.repository.UserGTRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserGTService {
 
@@ -26,6 +28,7 @@ public class UserGTService {
         UserGT user = ConverterDtoModel.convertUserGTDtoToUserGT(userGTDto);
 
         userGTRepository.save(user);
+        log.info("Usuário salvo com sucesso");
 
         accountGTService.createAccountGT(user);
 

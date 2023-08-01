@@ -4,9 +4,11 @@ import com.example.genealogictree.core.exceptions.NotExistentAccountException;
 import com.example.genealogictree.model.entityaccount.AccountGT;
 import com.example.genealogictree.model.entityaccount.UserGT;
 import com.example.genealogictree.repository.AccountGTRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AccountGTService {
 
@@ -16,6 +18,7 @@ public class AccountGTService {
     public void createAccountGT(UserGT userGT){
 
         accountGTRepository.save(new AccountGT(userGT));
+        log.info("conta criada com sucesso");
 
     }
 
@@ -31,13 +34,7 @@ public class AccountGTService {
 
     public void updateAccountGT(AccountGT accountGT){
         accountGTRepository.save(accountGT);
+        log.info("conta atualizada com sucesso");
     }
 
-    public void findAccountGT(){
-
-    }
-
-    public void deleteAccountGT(){
-
-    }
 }
