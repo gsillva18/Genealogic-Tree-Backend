@@ -10,7 +10,7 @@
 
     <appender name="SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
         <url>http://localhost:8088</url>
-        <token>62f708d5-e6b1-4954-94ec-e462241c5c1f</token>
+        <token></token>
         <disableCertificateValidation>true</disableCertificateValidation>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%msg</pattern>
