@@ -34,7 +34,7 @@ public class CreatorResponses {
 
             response.setIdGenealogicTree(tree.getId());
             response.setName(tree.getName());
-            response.setCriationDate(tree.getCreationDate());
+            response.setCreationDate(tree.getCreationDate());
 
             responseList.add(response);
         }
