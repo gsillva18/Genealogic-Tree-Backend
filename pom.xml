@@ -98,6 +98,17 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -113,6 +124,24 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <!--     execution in maven build
+
+                    jacoco cmd:
+                    mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+
+                    sonar cmd:
+                    mvn sonar:sonar -Dsonar.login=seu-token-de-acesso
+             -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.7.0.1746</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
             </plugin>
         </plugins>
     </build>

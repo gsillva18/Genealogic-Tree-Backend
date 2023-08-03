@@ -1,5 +1,7 @@
 package com.example.genealogictree.response;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +14,14 @@ import java.util.List;
 
 @Getter
 @Setter
+@ApiModel(description = "basic response")
 public class BasicResponse {
 
+    @ApiModelProperty(value = "status", example = "CREATED", required = true)
     private HttpStatus status;
+    @ApiModelProperty(value = "message", example = "successful create", required = true)
     private String message;
+    @ApiModelProperty(value = "errors", example = "[]")
     private List<Object> errors;
 
     public BasicResponse(HttpStatus status, String message, List<FieldError> errors, String errorException){
